@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <new-quote @quoteAdded="NewQuote"></new-quote>
+    <quote-grid :quotesss="quotes" @quoteDel="deleteQuote"></quote-grid>
+    <div class="row text-center">
+      <div class="col-sm-6">
+        <div class="alert alert-info">Click on quote to delete!</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import QuoteGrid from './components/QuoteGrid'
+import NewQuote from './components/NewQuote'
 
 export default {
-  name: 'App',
+  data: function() {
+    return {
+      quotes: ['asd'],
+      maxQuotes: 10
+    }
+  },
+  methods: {
+    NewQuote(quote) {
+      this.quotes.push(quote)
+    },
+    deleteQuote(index) {
+      this.quotes.splice(index, 1)
+    }
+  },
   components: {
-    HelloWorld
+    QuoteGrid,
+    NewQuote
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+
 </style>
